@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+    --surface: 0 0% 100%;
+    --border: 214.3 31.8% 91.4%;
+    --primary: 239 84% 67%;
+    --secondary: 330 81% 60%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%; /* Slate 950 approx */
+    --foreground: 210 40% 98%;
+    --surface: 222.2 47% 11%; /* Slate 900 approx */
+    --border: 217.2 32.6% 17.5%; /* Slate 800 approx */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border transition-colors duration-200;
+  }
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20;
+    font-family: 'Cairo', sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+  
+  /* Full height setup for sticky footers */
+  #root {
+    @apply min-h-screen flex flex-col;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background-color: hsl(var(--surface) / 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border));
+    @apply shadow-premium;
+  }
+  
+  .dark .glass-card {
+    background-color: hsl(var(--surface) / 0.6);
+    border: 1px solid hsl(var(--border) / 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+  
+  .btn-premium {
+    @apply inline-flex items-center justify-center rounded-full px-8 py-4 font-black transition-all duration-300 
+           active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-primary-premium {
+    @apply btn-premium bg-primary text-white hover:opacity-90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30;
+  }
+
+  .btn-secondary-premium {
+    @apply btn-premium bg-secondary text-white hover:opacity-90 shadow-lg shadow-secondary/20 hover:shadow-xl hover:shadow-secondary/30;
+  }
+}
+
+/* RTL Support utility */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 dark:bg-slate-800 rounded-full border-4 border-transparent bg-clip-content;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-300 dark:bg-slate-700;
+}
